@@ -5,11 +5,7 @@ class Animals extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name : '',
-      age : '',
-      size : '',
-      species : '',
-      url : ''
+      animals: []
     }
   };
 
@@ -49,7 +45,8 @@ class Animals extends Component {
       // log the pet data
       console.log(data.animals[0]);
       const button = document.querySelector('#button');
-      button.onClick = () => {
+      button.onclick = () => {
+        console.log("i've been clicked");
         fetch('/', {
           method: 'POST',
           headers: {
@@ -59,9 +56,10 @@ class Animals extends Component {
         })
         .then(res => res.json())
         .then(data => {
-          
+          console.log(data);
         })
-      };    
+      }
+
     }).catch(e => {
       //log any errors
       console.log('something went wrong', e);
