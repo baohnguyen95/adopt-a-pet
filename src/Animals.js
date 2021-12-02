@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-
+import Pet from './Pet.js';
 
 class Animals extends Component {
   constructor(props){
     super(props);
     this.state = {
-      animals: []
+      name: '',
+      age: '',
+      size: '',
+      species: '',
+      url: ''
     }
   };
 
@@ -56,7 +60,13 @@ class Animals extends Component {
         })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          this.setState({
+            name: data.name,
+            age: data.age,
+            size: data.size,
+            species: data.species,
+            url: data.url
+          })
         })
       }
 
@@ -70,7 +80,13 @@ class Animals extends Component {
     return(
       <div>
         <h2>Pets</h2>
-        <button type="button" id="button">Click</button>
+        <button type="button" id="button">Find</button>
+        <Pet 
+          name={this.state.name} 
+          age={this.state.age} 
+          size={this.state.size}
+          species={this.state.species}
+          url={this.state.url}/>
       </div>
     );
   };
