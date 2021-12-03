@@ -106,7 +106,7 @@ class Animals extends Component {
   render() {
     return(
       <div>
-        <button type="button" id="button" onClick={this._onButtonClick}>Add</button>
+        <button type="button" id="button" onClick={this._onButtonClick}>Add Pet</button>
         {this.state.showComponent ?
           <Pet 
           name={this.state.name} 
