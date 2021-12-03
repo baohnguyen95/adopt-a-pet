@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import Animals from './Animals.js'
+import Animals from './Animals.js';
+import './App.css';
 
 const App = () => {
     return (

@@ -25,8 +25,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', fileController.getPets, (req,res) => {
-  return res.status(200).json(res.locals.pet);
+  return res.status(200)
+            .json(res.locals.pet)
 });
+
+app.delete('/', fileController.deletePets, (req,res) => {
+  return res.status(200).json({});
+})
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
 

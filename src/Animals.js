@@ -9,8 +9,10 @@ class Animals extends Component {
       age: '',
       size: '',
       species: '',
-      url: ''
+      url: '',
+      showComponent: false,
     }
+    this._onButtonClick = this._onButtonClick.bind(this);
   };
 
   componentDidMount(){
@@ -48,27 +50,28 @@ class Animals extends Component {
     }).then(data => {
       // log the pet data
       console.log(data.animals[0]);
-      const button = document.querySelector('#button');
-      button.onclick = () => {
-        console.log("i've been clicked");
-        fetch('/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data.animals),
-        })
-        .then(res => res.json())
-        .then(data => {
-          this.setState({
-            name: data.name,
-            age: data.age,
-            size: data.size,
-            species: data.species,
-            url: data.url
-          })
-        })
-      }
+      this.updateData = data;
+      // const button = document.querySelector('#button');
+      // button.onclick = () => {
+      //   console.log("i've been clicked");
+      //   fetch('/', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(data.animals),
+      //   })
+      //   .then(res => res.json())
+      //   .then(data => {
+      //     this.setState({
+      //       name: data.name,
+      //       age: data.age,
+      //       size: data.size,
+      //       species: data.species,
+      //       url: data.url
+      //     })
+      //   })
+      // }
 
     }).catch(e => {
       //log any errors
@@ -76,17 +79,42 @@ class Animals extends Component {
     });
   }
 
+  _onButtonClick(){
+    fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.updateData.animals[Math.floor(Math.random(0,this.updateData.animals.length))]),
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        name: data.name,
+        age: data.age,
+        size: data.size,
+        species: data.species,
+        url: data.url,
+        showComponent: true,
+      })
+    })
+    // this.setState({
+    //   showComponent: true,
+    // });
+  }
+
   render() {
     return(
       <div>
-        <h2>Pets</h2>
-        <button type="button" id="button">Find</button>
-        <Pet 
+        <button type="button" id="button" onClick={this._onButtonClick}>Add</button>
+        {this.state.showComponent ?
+          <Pet 
           name={this.state.name} 
           age={this.state.age} 
           size={this.state.size}
           species={this.state.species}
-          url={this.state.url}/>
+          url={this.state.url}/> : null
+        }
       </div>
     );
   };
